@@ -1,173 +1,118 @@
-import { Component } from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
-
+// register.component.tsx
+import React, { Component } from "react";
 import AuthService from "../services/auth.service";
 
 type Props = {};
 
 type State = {
-  username: string,
-  email: string,
-  password: string,
-  successful: boolean,
-  message: string
+  email: string;
+  password: string;
+  fullName: string;
+  message: string;
 };
 
 export default class Register extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.handleRegister = this.handleRegister.bind(this);
-
     this.state = {
-      username: "",
       email: "",
       password: "",
-      successful: false,
+      fullName: "",
       message: ""
     };
   }
 
-  validationSchema() {
-    return Yup.object().shape({
-      username: Yup.string()
-        .test(
-          "len",
-          "The username must be between 3 and 20 characters.",
-          (val: any) =>
-            val &&
-            val.toString().length >= 3 &&
-            val.toString().length <= 20
-        )
-        .required("This field is required!"),
-      email: Yup.string()
-        .email("This is not a valid email.")
-        .required("This field is required!"),
-      password: Yup.string()
-        .test(
-          "len",
-          "The password must be between 6 and 40 characters.",
-          (val: any) =>
-            val &&
-            val.toString().length >= 6 &&
-            val.toString().length <= 40
-        )
-        .required("This field is required!"),
-    });
-  }
+  handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-  handleRegister(formValue: { username: string; email: string; password: string }) {
-    const { username, email, password } = formValue;
+    const { email, password, fullName } = this.state;
 
-    this.setState({
-      message: "",
-      successful: false
-    });
-
-    AuthService.register(email, password).then(
+    AuthService.register(email, password, fullName).then(
       response => {
         this.setState({
           message: "Registration successful!",
-          successful: true
         });
       },
       error => {
         const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
+          (error.response && error.response.data && error.response.data.message) ||
           error.message ||
           error.toString();
 
         this.setState({
-          successful: false,
-          message: resMessage
+          message: resMessage,
         });
       }
     );
-  }
+  };
+
+  onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      email: e.target.value,
+    });
+  };
+
+  onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      password: e.target.value,
+    });
+  };
+
+  onChangeFullName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      fullName: e.target.value,
+    });
+  };
 
   render() {
-    const { successful, message } = this.state;
-
-    const initialValues = {
-      username: "",
-      email: "",
-      password: "",
-    };
-
     return (
-      <div className="col-md-12">
-        <div className="card card-container">
-          <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
-          />
+      <div className="container">
+        <form onSubmit={this.handleRegister}>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              className="form-control"
+              name="email"
+              value={this.state.email}
+              onChange={this.onChangeEmail}
+            />
+          </div>
 
-          <Formik
-            initialValues={initialValues}
-            validationSchema={this.validationSchema()}
-            onSubmit={this.handleRegister}
-          >
-            <Form>
-              {!successful && (
-                <div>
-                  <div className="form-group">
-                    <label htmlFor="username">Username</label>
-                    <Field name="username" type="text" className="form-control" />
-                    <ErrorMessage
-                      name="username"
-                      component="div"
-                      className="alert alert-danger"
-                    />
-                  </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              className="form-control"
+              name="password"
+              value={this.state.password}
+              onChange={this.onChangePassword}
+            />
+          </div>
 
-                  <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <Field name="email" type="email" className="form-control" />
-                    <ErrorMessage
-                      name="email"
-                      component="div"
-                      className="alert alert-danger"
-                    />
-                  </div>
+          <div className="form-group">
+            <label htmlFor="fullName">Full Name</label>
+            <input
+              type="text"
+              className="form-control"
+              name="fullName"
+              value={this.state.fullName}
+              onChange={this.onChangeFullName}
+            />
+          </div>
 
-                  <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <Field
-                      name="password"
-                      type="password"
-                      className="form-control"
-                    />
-                    <ErrorMessage
-                      name="password"
-                      component="div"
-                      className="alert alert-danger"
-                    />
-                  </div>
+          <div className="form-group">
+            <button className="btn btn-primary btn-block">Sign Up</button>
+          </div>
 
-                  <div className="form-group">
-                    <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
-                  </div>
-                </div>
-              )}
-
-              {message && (
-                <div className="form-group">
-                  <div
-                    className={
-                      successful ? "alert alert-success" : "alert alert-danger"
-                    }
-                    role="alert"
-                  >
-                    {message}
-                  </div>
-                </div>
-              )}
-            </Form>
-          </Formik>
-        </div>
+          {this.state.message && (
+            <div className="form-group">
+              <div className="alert alert-danger" role="alert">
+                {this.state.message}
+              </div>
+            </div>
+          )}
+        </form>
       </div>
     );
   }

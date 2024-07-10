@@ -28,11 +28,16 @@ class AuthService {
     }
   }
 
-  async register(email: string, password: string) {
+  async register(email: string, password: string, fullName: string) {
     console.log(`Registering with email: ${email}`);
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          full_name: fullName // Save 'fullName' in the user metadata
+        }
+      }
     });
 
     if (error) {
