@@ -60,7 +60,7 @@ class AuthService {
         id: user.id,
         email,
         roles: ["ROLE_USER"], // Example roles, adjust as needed
-        username: email.split('@')[0] // Example username generation
+        username: user.id // Example username generation
       };
     }
 

@@ -15,6 +15,8 @@ import EventBus from "./common/EventBus";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
+import User from "./components/user.component";
+
 
 
 type Props = {};

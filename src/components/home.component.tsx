@@ -31,7 +31,7 @@ export default class Home extends Component<Props, State> {
             error.message ||
             error.toString()
         });
-      }
+     }
     );
   }
 
