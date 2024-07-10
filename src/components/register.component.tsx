@@ -19,7 +19,7 @@ export default class Register extends Component<Props, State> {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
 
-this.state = {
+    this.state = {
       username: "",
       email: "",
       password: "",
@@ -64,10 +64,27 @@ this.state = {
       successful: false
     });
 
-    AuthService.register(
-      email,
-      password
-    )
+    AuthService.register(email, password, username).then(
+      response => {
+        this.setState({
+          message: "Registration successful!",
+          successful: true
+        });
+      },
+      error => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        this.setState({
+          successful: false,
+          message: resMessage
+        });
+      }
+    );
   }
 
   render() {
@@ -90,14 +107,14 @@ this.state = {
 
           <Formik
             initialValues={initialValues}
-            validationSchema={this.validationSchema}
+            validationSchema={this.validationSchema()}
             onSubmit={this.handleRegister}
           >
             <Form>
               {!successful && (
                 <div>
                   <div className="form-group">
-                    <label htmlFor="username"> Username </label>
+                    <label htmlFor="username">Username</label>
                     <Field name="username" type="text" className="form-control" />
                     <ErrorMessage
                       name="username"
@@ -107,7 +124,7 @@ this.state = {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="email"> Email </label>
+                    <label htmlFor="email">Email</label>
                     <Field name="email" type="email" className="form-control" />
                     <ErrorMessage
                       name="email"
@@ -117,7 +134,7 @@ this.state = {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="password"> Password </label>
+                    <label htmlFor="password">Password</label>
                     <Field
                       name="password"
                       type="password"
