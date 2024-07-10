@@ -64,7 +64,7 @@ export default class Register extends Component<Props, State> {
       successful: false
     });
 
-    AuthService.register(email, password, username).then(
+    AuthService.register(email, password).then(
       response => {
         this.setState({
           message: "Registration successful!",
