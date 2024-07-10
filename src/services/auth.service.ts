@@ -1,3 +1,4 @@
+// auth.service.ts
 import { supabase } from "../utils/supabaseClient";
 import IUser from "../types/user.type";
 
@@ -60,7 +61,8 @@ class AuthService {
         id: user.id,
         email,
         roles: ["ROLE_USER"], // Example roles, adjust as needed
-        username: email.split('@')[0] // Example username generation
+        username: email.split('@')[0], // Example username generation
+        name: user.user_metadata?.full_name || 'Default Name' // Adjust based on your metadata
       };
     }
 

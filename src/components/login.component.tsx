@@ -59,7 +59,7 @@ export default class Login extends Component<Props, State> {
     try {
       await AuthService.login(username, password);
       this.setState({
-        redirect: "../pages/user"
+        redirect: "./profile.component.tsx"
       });
     } catch (error) {
       this.setState({

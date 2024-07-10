@@ -36,7 +36,6 @@ export default class Profile extends Component<Props, State> {
     if (!currentUser) {
       this.setState({ redirect: "/home" });
     } else {
-      // Assuming you have a way to get the accessToken
       const { data: { user } } = await supabase.auth.getUser();
       
       if (user) {
@@ -65,6 +64,9 @@ export default class Profile extends Component<Props, State> {
               </h3>
             </header>
             <p>
+              <strong>Name:</strong> {currentUser.name || 'Default Name'}
+            </p>
+            <p>
               <strong>Token:</strong> {currentUser.accessToken}
             </p>
             <p>
@@ -86,4 +88,3 @@ export default class Profile extends Component<Props, State> {
     );
   }
 }
-
