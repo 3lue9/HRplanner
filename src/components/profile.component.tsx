@@ -3,6 +3,14 @@ import { Navigate } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import IUser from "../types/user.type";
 
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = 'https://refctsbzuhtipgaovorf.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlZmN0c2J6dWh0aXBnYW92b3JmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjA1NDE3MzEsImV4cCI6MjAzNjExNzczMX0._7ft6GQigjmLbws3xDjN-c_f-RCX3TL0mOK5Pk0OOTA'
+
+export const supabase = createClient(supabaseUrl, supabaseKey)
+
+
 type Props = {};
 
 type State = {
@@ -29,8 +37,14 @@ export default class Profile extends Component<Props, State> {
       this.setState({ redirect: "/home" });
     } else {
       // Assuming you have a way to get the accessToken
-      const accessToken = "your_access_token"; // Replace with actual access token fetching logic
-      this.setState({ currentUser: { ...currentUser, accessToken }, userReady: true });
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (user) {
+        const accessToken = user.id; // Replace with actual access token fetching logic
+        this.setState({ currentUser: { ...currentUser, accessToken }, userReady: true });
+      } else {
+        console.error("User is null");
+      }
     }
   }
 
@@ -51,17 +65,13 @@ export default class Profile extends Component<Props, State> {
               </h3>
             </header>
             <p>
-              <strong>Token:</strong>{" "}
-              {currentUser.accessToken.substring(0, 20)} ...{" "}
-              {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
+              <strong>Token:</strong> {currentUser.accessToken}
             </p>
             <p>
-              <strong>Id:</strong>{" "}
-              {currentUser.id}
+              <strong>Id:</strong> {currentUser.id}
             </p>
             <p>
-              <strong>Email:</strong>{" "}
-              {currentUser.email}
+              <strong>Email:</strong> {currentUser.email}
             </p>
             <strong>Authorities:</strong>
             <ul>
@@ -76,3 +86,4 @@ export default class Profile extends Component<Props, State> {
     );
   }
 }
+
