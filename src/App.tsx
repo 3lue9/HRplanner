@@ -143,14 +143,14 @@ class App extends Component<Props, State> {
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/planner" element={<Profile />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/user" element={<BoardUser />} />
             <Route path="/mod" element={<BoardModerator />} />
             <Route path="/admin" element={<BoardAdmin />} />
           </Routes>
         </div>
 
-        { /*<AuthVerify logOut={this.logOut}/> */}
+        {}
       
       </div>
     );

@@ -3,8 +3,9 @@ import { Component } from "react";
 import UserService from "../services/user.service";
 import EventBus from "../common/EventBus";
 
-import Calendar from "./subcomponents/Calendar";
-import "./css/calendar.style.css"
+import Calendar from "./calendar/Calendar";
+import "./calendar/Calendar.css"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 type Props = {};
 
@@ -48,9 +49,8 @@ export default class BoardUser extends Component<Props, State> {
   render() {
     return (
       <div className="container">
-        <header className="jumbotron">
           <Calendar />
-        </header>
+
       </div>
     );
   }

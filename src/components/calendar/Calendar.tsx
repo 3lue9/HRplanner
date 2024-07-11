@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { now, months } from "../../utils/tools";
-import Day from "../subcomponents/Day";
+import Day from "./Day";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { capFirstLetter, monthName, dayName } from "../../utils/tools";
 import { Dayjs } from "dayjs";
 import { SelectedDay } from "../../types/types";
 import { BsCalendarEvent } from "react-icons/bs";
+
+import "./Calendar.css"
 
 let index: number = now.weekOfMonth;
 let month: number = now.month;
@@ -81,10 +83,10 @@ const Calendar: React.FC = () => {
           }}
           className="btn medium-sz dark"
         />
-        <h1 className="dark ms-5">
+        <h1 className="dark ms-5 month">
           {capFirstLetter(monthName(days[0].month() + 1))} {days[0].year()}
         </h1>
-        <button className="reset-today" onClick={reset}>
+        <button className="reset-today todat" onClick={reset}>
           <BsCalendarEvent className="me-5" />
           Today
         </button>
