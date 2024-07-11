@@ -3,6 +3,9 @@ import { Component } from "react";
 import UserService from "../services/user.service";
 import EventBus from "../common/EventBus";
 
+import Calendar from "./subcomponents/Calendar";
+import "./css/calendar.style.css"
+
 type Props = {};
 
 type State = {
@@ -46,7 +49,7 @@ export default class BoardUser extends Component<Props, State> {
     return (
       <div className="container">
         <header className="jumbotron">
-          <h3>{this.state.content}</h3>
+          <Calendar />
         </header>
       </div>
     );

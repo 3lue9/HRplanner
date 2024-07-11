@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+.App {
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.primary {
+  color: rgb(49, 94, 146);
+}
+
+.dark {
+  color: hsl(11, 0%, 30%);
+}
+
+.medium-sz {
+  font-size: 32px;
+}
+
+.btn {
+  cursor: pointer;
+  padding: 4px;
+}
+
+.ms-5 {
+  margin-left: 10px;
+}
+
+.me-5 {
+  margin-right: 5px;
+}
+
+.btn:hover {
+  background-color: rgb(72, 145, 214);
+  border-radius: 5px;
+  color: white;
+}
+
+.calendar {
+  margin-top: 10rem;
+  width: 1000px;
+  height: 240px;
+  background: #d3d3d3;
+  border-radius: 20px;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  margin-left: 50px;
+  margin-top: 10px;
+  user-select: none;
+}
+
+.navbar-days {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
+
+.day {
+  display: flex;
+  user-select: none;
+  flex-direction: column;
+  align-items: center;
+  height: 100px;
+  width: 80px;
+  cursor: pointer;
+}
+
+.day :last-child {
+  user-select: none;
+  font-size: 32px;
+  margin-top: 10px;
+  width: 65px;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  transition: background 100ms ease-in-out;
+}
+
+.day:hover :not(:first-child, .selected) {
+  background: rgb(240, 240, 240);
+}
+
+.day:hover > .selected {
+  background: rgb(244, 252, 203);
+}
+
+.selected {
+  background: rgb(221, 247, 76);
+}
+
+.today :first-child {
+  border-bottom: 3px solid dodgerblue;
+}
+
+.today :last-child {
+  position: relative;
+  top: -3px;
+  color: dodgerblue;
+}
+
+.reset-today {
+  margin-left: 15px;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  padding: 8px;
+  background: dodgerblue;
+  color: white;
+  border: dodgerblue;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 200ms ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reset-today:hover {
+  background: hsl(210, 100%, 66%);
+}

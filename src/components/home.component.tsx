@@ -39,7 +39,8 @@ export default class Home extends Component<Props, State> {
     return (
       <div className="container">
         <header className="jumbotron">
-          <h3></h3>
+          <h3>welcome to <strong>HRplanner</strong> the first planner made by equestrians for equestrians</h3> <br></br><br></br>
+            to start login or register
         </header>
       </div>
     );

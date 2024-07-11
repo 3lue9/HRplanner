@@ -6,7 +6,7 @@ import "./App.css";
 import AuthService from "./services/auth.service";
 import IUser from './types/user.type';
 import Profile from "./components/profile.component";
-import BoardUser from "./components/board-user.component";
+import BoardUser from "./components/planner.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 
@@ -101,7 +101,7 @@ class App extends Component<Props, State> {
             {currentUser && (
               <li className="nav-item">
                 <Link to={"/user"} className="nav-link">
-                  User
+                  Planner
                 </Link>
               </li>
             )}
@@ -116,7 +116,7 @@ class App extends Component<Props, State> {
               </li>
               <li className="nav-item">
                 <a href="/login" className="nav-link" onClick={this.logOut}>
-                  LogOut
+                  Log Out
                 </a>
               </li>
             </div>
@@ -143,7 +143,7 @@ class App extends Component<Props, State> {
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/planner" element={<Profile />} />
             <Route path="/user" element={<BoardUser />} />
             <Route path="/mod" element={<BoardModerator />} />
             <Route path="/admin" element={<BoardAdmin />} />
