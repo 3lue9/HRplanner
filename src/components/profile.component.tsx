@@ -2,6 +2,7 @@ import { Component } from "react";
 import { Navigate } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import IUser from "../types/user.type";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 
 import { createClient } from '@supabase/supabase-js'
 
@@ -60,14 +61,11 @@ export default class Profile extends Component<Props, State> {
           <div>
             <header className="jumbotron">
               <h3>
-                <strong>{currentUser.username}</strong> Profile
+                <strong>{currentUser.name || 'Error fetching username'}</strong> Profile
               </h3>
             </header>
             <p>
               <strong>Name:</strong> {currentUser.name || 'Default Name'}
-            </p>
-            <p>
-              <strong>Token:</strong> {currentUser.accessToken}
             </p>
             <p>
               <strong>Id:</strong> {currentUser.id}
@@ -75,11 +73,9 @@ export default class Profile extends Component<Props, State> {
             <p>
               <strong>Email:</strong> {currentUser.email}
             </p>
-            <strong>Authorities:</strong>
-            <ul>
-              {currentUser.roles &&
-                currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-            </ul>
+            <div>
+              <strong>Org code: {currentUser.orgCode || 'insert an orgcode below'}</strong>              
+            </div>
           </div>
         ) : (
           <p>Loading...</p>

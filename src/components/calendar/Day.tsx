@@ -1,3 +1,5 @@
+import { date } from "yup";
+
 interface Props {
     day: string;
     date: number;
@@ -7,7 +9,6 @@ interface Props {
     handlerSelect: (d: number, m: number, y: number) => void;
     selected: boolean;
   }
-  
   const Day: React.FC<Props> = ({
     day,
     date,
@@ -26,6 +27,7 @@ interface Props {
         <span className={selected ? "selected" : ""}>{date}</span>
       </div>
     );
+    
   };
   
   export default Day;

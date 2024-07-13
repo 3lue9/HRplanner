@@ -149,9 +149,6 @@ class App extends Component<Props, State> {
             <Route path="/admin" element={<BoardAdmin />} />
           </Routes>
         </div>
-
-        {}
-      
       </div>
     );
   }

@@ -6,5 +6,6 @@ export default interface IUser {
   email: string;
   roles: string[];
   name?: string; // Make this property optional
+  orgCode?: string;
 }
 

@@ -1,4 +1,5 @@
-import { useState } from "react";
+// File: src/components/calendar/Calendar.tsx
+import { useState, useEffect } from "react";
 import { now, months } from "../../utils/tools";
 import Day from "./Day";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
@@ -6,8 +7,7 @@ import { capFirstLetter, monthName, dayName } from "../../utils/tools";
 import { Dayjs } from "dayjs";
 import { SelectedDay } from "../../types/types";
 import { BsCalendarEvent } from "react-icons/bs";
-
-import "./Calendar.css"
+import "./Calendar.css";
 
 let index: number = now.weekOfMonth;
 let month: number = now.month;
@@ -17,12 +17,18 @@ let unselected: SelectedDay = {
   year: -1
 };
 
-const Calendar: React.FC = () => {
-  //States
+interface CalendarProps {
+  onSelectDay: (selectedDay: SelectedDay) => void;
+}
+
+const Calendar: React.FC<CalendarProps> = ({ onSelectDay }) => {
   const [days, setDays] = useState<Dayjs[]>(months()[now.weekOfMonth]);
   const [selected, setSelected] = useState<SelectedDay>(unselected);
 
-  //Function to set selected date state
+  useEffect(() => {
+    onSelectDay(selected);
+  }, [selected, onSelectDay]);
+
   const selectDay = (d: number, m: number, y: number): void => {
     if (d === selected.date && m === selected.month && y === selected.year) {
       setSelected(unselected);
@@ -31,37 +37,29 @@ const Calendar: React.FC = () => {
     setSelected({ date: d, month: m, year: y });
   };
 
-  //Function to navidate between weeks (back and forth)
   const navigate = (nav: boolean): void => {
-    //Forth
     if (nav) {
       index++;
       if (index > 4) {
         index = 0;
         month++;
-        //same week validation
         if (days[0].date() === months(month)[index][0].date()) {
           index++;
         }
       }
-    }
-    //Back
-    if (!nav) {
+    } else {
       index--;
       if (index < 0) {
         index = 4;
         month--;
-        //same week valiadtion
         if (days[0].date() === months(month)[index][0].date()) {
           index--;
         }
       }
     }
-    //set week days with month and index values obtained from validations
     setDays(months(month)[index]);
   };
 
-  //Function to reset to today
   const reset = (): void => {
     setDays(months()[now.weekOfMonth]);
     index = now.weekOfMonth;
@@ -71,18 +69,8 @@ const Calendar: React.FC = () => {
   return (
     <div className="calendar">
       <div className="navbar">
-        <FiArrowLeft
-          onClick={() => {
-            navigate(false);
-          }}
-          className="btn medium-sz dark"
-        />
-        <FiArrowRight
-          onClick={() => {
-            navigate(true);
-          }}
-          className="btn medium-sz dark"
-        />
+        <FiArrowLeft onClick={() => navigate(false)} className="btn medium-sz dark" />
+        <FiArrowRight onClick={() => navigate(true)} className="btn medium-sz dark" />
         <h1 className="dark ms-5 month">
           {capFirstLetter(monthName(days[0].month() + 1))} {days[0].year()}
         </h1>
@@ -92,28 +80,18 @@ const Calendar: React.FC = () => {
         </button>
       </div>
       <div className="navbar-days">
-        {days.map((day) => {
-          return (
-            <Day
-              key={day.day()}
-              day={dayName(day.day())}
-              date={day.date()}
-              month={day.month()}
-              year={day.year()}
-              today={
-                day.date() === now.date &&
-                day.month() === now.month &&
-                day.year() === now.year
-              }
-              handlerSelect={selectDay}
-              selected={
-                day.date() === selected.date &&
-                day.month() === selected.month &&
-                day.year() === selected.year
-              }
-            />
-          );
-        })}
+        {days.map((day) => (
+          <Day
+            key={day.day()}
+            day={dayName(day.day())}
+            date={day.date()}
+            month={day.month()}
+            year={day.year()}
+            today={day.date() === now.date && day.month() === now.month && day.year() === now.year}
+            handlerSelect={selectDay}
+            selected={day.date() === selected.date && day.month() === selected.month && day.year() === selected.year}
+          />
+        ))}
       </div>
     </div>
   );

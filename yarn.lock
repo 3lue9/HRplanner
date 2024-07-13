@@ -3806,7 +3806,7 @@ dayjs@^1.8.19:
   resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.11.11.tgz"
   integrity sha512-okzr3f11N6WuqYtZSvm+F776mB41wRZMhKP+hc34YdW+KmtYYK9iqvHSwo2k9FEH3fhGXvOPV6yz2IcSrfRUDg==
 
-dayjs@2.0.0-alpha.2:
+dayjs@^2.0.0-alpha.2:
   version "2.0.0-alpha.2"
   resolved "https://registry.npmjs.org/dayjs/-/dayjs-2.0.0-alpha.2.tgz"
   integrity sha512-piZlTKTEwoMBbsxRJ77LDndaYQyyV2BmAJtrhNb1O1C19Uzc1A//bSJ4W3CuF7iChG+yuKay/B8t9WePSJENkQ==
