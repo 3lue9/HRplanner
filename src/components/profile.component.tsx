@@ -3,14 +3,14 @@ import { Navigate } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import IUser from "../types/user.type";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import * as Yup from 'yup';
 
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://refctsbzuhtipgaovorf.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlZmN0c2J6dWh0aXBnYW92b3JmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjA1NDE3MzEsImV4cCI6MjAzNjExNzczMX0._7ft6GQigjmLbws3xDjN-c_f-RCX3TL0mOK5Pk0OOTA'
+const supabaseUrl = 'https://refctsbzuhtipgaovorf.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlZmN0c2J6dWh0aXBnYW92b3JmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjA1NDE3MzEsImV4cCI6MjAzNjExNzczMX0._7ft6GQigjmLbws3xDjN-c_f-RCX3TL0mOK5Pk0OOTA';
 
-export const supabase = createClient(supabaseUrl, supabaseKey)
-
+export const supabase = createClient(supabaseUrl, supabaseKey);
 
 type Props = {};
 
@@ -18,7 +18,7 @@ type State = {
   redirect: string | null,
   userReady: boolean,
   currentUser: IUser & { accessToken: string } | null
-}
+};
 
 export default class Profile extends Component<Props, State> {
   constructor(props: Props) {
@@ -38,9 +38,9 @@ export default class Profile extends Component<Props, State> {
       this.setState({ redirect: "/home" });
     } else {
       const { data: { user } } = await supabase.auth.getUser();
-      
+
       if (user) {
-        const accessToken = user.id; // Replace with actual access token fetching logic
+        const accessToken = user.id; 
         this.setState({ currentUser: { ...currentUser, accessToken }, userReady: true });
       } else {
         console.error("User is null");
@@ -50,7 +50,7 @@ export default class Profile extends Component<Props, State> {
 
   render() {
     if (this.state.redirect) {
-      return <Navigate to={this.state.redirect} />
+      return <Navigate to={this.state.redirect} />;
     }
 
     const { currentUser } = this.state;
@@ -74,7 +74,7 @@ export default class Profile extends Component<Props, State> {
               <strong>Email:</strong> {currentUser.email}
             </p>
             <div>
-              <strong>Org code: {currentUser.orgCode || 'insert an orgcode below'}</strong>              
+              <strong>Org code: </strong>{currentUser.orgCode}
             </div>
           </div>
         ) : (

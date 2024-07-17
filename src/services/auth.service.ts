@@ -28,14 +28,15 @@ class AuthService {
     }
   }
 
-  async register(email: string, password: string, fullName: string) {
+  async register(email: string, password: string, fullName: string, orgCode: string) {
     console.log(`Registering with email: ${email}`);
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         data: {
-          full_name: fullName // Save 'fullName' in the user metadata
+          full_name: fullName, // Save 'fullName' in the user metadata
+          orgCode: orgCode
         }
       }
     });
@@ -66,8 +67,9 @@ class AuthService {
         id: user.id,
         email,
         roles: ["ROLE_USER"], // Example roles, adjust as needed
-        username: email.split('@')[0], // Example username generation
-        name: user.user_metadata?.full_name || 'Default Name' // Adjust based on your metadata
+        username: user.user_metadata?.full_name,
+        name: user.user_metadata?.full_name || 'Default Name', // Adjust based on your metadata
+        orgCode: user.user_metadata.orgCode,
       };
     }
 

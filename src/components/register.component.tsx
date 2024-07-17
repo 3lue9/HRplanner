@@ -9,6 +9,7 @@ type State = {
   password: string;
   fullName: string;
   message: string;
+  OrgCode: string;
 };
 
 export default class Register extends Component<Props, State> {
@@ -18,6 +19,7 @@ export default class Register extends Component<Props, State> {
       email: "",
       password: "",
       fullName: "",
+      OrgCode: "",
       message: ""
     };
   }
@@ -25,9 +27,9 @@ export default class Register extends Component<Props, State> {
   handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const { email, password, fullName } = this.state;
+    const { email, password, fullName, OrgCode } = this.state;
 
-    AuthService.register(email, password, fullName).then(
+    AuthService.register(email, password, fullName, OrgCode).then(
       response => {
         this.setState({
           message: "Registration successful!",
@@ -61,6 +63,12 @@ export default class Register extends Component<Props, State> {
   onChangeFullName = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       fullName: e.target.value,
+    });
+  };
+
+  onChangeOrgCode = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      OrgCode: e.target.value,
     });
   };
 
@@ -98,6 +106,17 @@ export default class Register extends Component<Props, State> {
               name="fullName"
               value={this.state.fullName}
               onChange={this.onChangeFullName}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="orgCode">Org Code</label>
+            <input
+              type="text"
+              className="form-control"
+              name="orgCode"
+              value={this.state.OrgCode}
+              onChange={this.onChangeOrgCode}
             />
           </div>
 
