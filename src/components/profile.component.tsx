@@ -4,7 +4,8 @@ import AuthService from "../services/auth.service";
 import IUser from "../types/user.type";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from 'yup';
-import OrgService from "../services/org.service"
+import OrgService from "../services/org.service";
+import GetInfoByDay from "../services/org.service"
 
 import { createClient } from '@supabase/supabase-js';
 
@@ -78,11 +79,20 @@ export default class Profile extends Component<Props, State> {
             <div>
               <strong>Org code: </strong>{currentUser.orgCode}
               <div className="form-group">
+
+                <button
+                    className="btn btn-primary btn-block"
+                    onClick={() => OrgService.GetInfoByDay(currentUser.orgCode, "1721343600")}>
+                    dbg
+                </button>
+
+
                 <button
                     className="btn btn-primary btn-block"
                     onClick={() => OrgService.verifyORG(currentUser.orgCode)}>
                     verify org
                 </button>
+
               </div>
             </div>
           </div>
