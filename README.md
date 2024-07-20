@@ -9,7 +9,7 @@ the first planner for riding schools, ranches and anything in between, born to r
 
 # Tools and services used
 
-for the domain [http://hrplanner.xyz](http://hrplanner.xyz) i'm using namecheap \
+for the domain [https://hrplanner.xyz](http://hrplanner.xyz) i'm using namecheap \
 for the database and user managment i'm using [supabase](https://supabase.com) \
 for emails i'm using [resend](https://resend.com)
 
