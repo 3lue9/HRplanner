@@ -86,6 +86,11 @@ export default class Profile extends Component<Props, State> {
                     dbg
                 </button>
 
+                <button
+                    className="btn btn-primary btn-block"
+                    onClick={() => OrgService.WriteToDB(currentUser.orgCode)}>
+                    dbg - add and read form db
+                </button>
 
                 <button
                     className="btn btn-primary btn-block"

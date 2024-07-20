@@ -32,6 +32,27 @@ class OrgService {
       throw err;
     }
   }
+  
+  async WriteToDB(orgCode: string) {
+    console.log("writing fake data to db and retriving it")
+    console.log('table name', orgCode)
+
+    
+    const { data, error } = await supabase.from('RanchDelMare').insert([
+      { timestamp: '1721343600' },
+      { events: [] },
+    ])
+    .select()
+
+  console.log(JSON.stringify(data))
+
+  if (error){
+    console.log(error)
+  }
+
+}
+
+
 
   async GetInfoByDay(orgCode: string, timestamp: string) {
     console.log(`Retrieving data for day: ${timestamp}`);
