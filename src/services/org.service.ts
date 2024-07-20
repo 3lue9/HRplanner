@@ -1,4 +1,5 @@
 import { supabase } from "../utils/supabaseClient";
+import DateService from "./date.service"; // Correct import
 
 class OrgService {
   async verifyORG(orgCode: string) {
@@ -32,7 +33,14 @@ class OrgService {
       throw err;
     }
   }
-  
+ 
+  async GetInfoByDay(orgCode: string, date: string) {
+        console.log("retrieving day: ", date, "from ", orgCode);
+        const timestamp = await DateService.dateToEpoch(date);
+        console.log(`Epoch timestamp for ${date} is ${timestamp}`);
+        // Your code here
+    }
+
   async WriteToDB(orgCode: string) {
     console.log("writing fake data to db and retriving it")
     console.log('table name', orgCode)
@@ -53,7 +61,7 @@ class OrgService {
 }
 
 
-
+  /*
   async GetInfoByDay(orgCode: string, timestamp: string) {
     console.log(`Retrieving data for day: ${timestamp}`);
 
@@ -85,6 +93,7 @@ class OrgService {
       throw err;
     }
   }
+  */
 }
 
 export default new OrgService();

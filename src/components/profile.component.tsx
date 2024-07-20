@@ -6,6 +6,8 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from 'yup';
 import OrgService from "../services/org.service";
 import GetInfoByDay from "../services/org.service"
+  
+
 
 import { createClient } from '@supabase/supabase-js';
 
@@ -82,14 +84,14 @@ export default class Profile extends Component<Props, State> {
 
                 <button
                     className="btn btn-primary btn-block"
-                    onClick={() => OrgService.GetInfoByDay(currentUser.orgCode, "1721343600")}>
-                    dbg
+                    onClick={() => OrgService.WriteToDB(currentUser.orgCode)}>
+                    dbg - add and read form db
                 </button>
 
                 <button
                     className="btn btn-primary btn-block"
-                    onClick={() => OrgService.WriteToDB(currentUser.orgCode)}>
-                    dbg - add and read form db
+                    onClick={() => OrgService.GetInfoByDay(currentUser.orgCode, "20/07/2024")}>
+                    date check
                 </button>
 
                 <button
@@ -97,6 +99,7 @@ export default class Profile extends Component<Props, State> {
                     onClick={() => OrgService.verifyORG(currentUser.orgCode)}>
                     verify org
                 </button>
+
 
               </div>
             </div>
