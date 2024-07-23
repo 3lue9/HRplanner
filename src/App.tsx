@@ -71,6 +71,7 @@ class App extends Component<Props, State> {
 
     return (
       <div>
+        <title>HR planner</title>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
             HRplanner

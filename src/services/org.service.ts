@@ -37,8 +37,21 @@ class OrgService {
   async GetInfoByDay(orgCode: string, date: string) {
         console.log("retrieving day: ", date, "from ", orgCode);
         const timestamp = await DateService.dateToEpoch(date);
+
         console.log(`Epoch timestamp for ${date} is ${timestamp}`);
-        // Your code here
+
+        // retrive from database given the timestamp, orgcode
+        const { data, error, status } = await supabase
+        .from(orgCode)
+        .select('*')
+        .eq('timestamp', timestamp)
+
+        console.log(`Status: ${status}`);
+        console.log(`Data: ${JSON.stringify(data)}`);
+        console.log(`Error: ${JSON.stringify(error)}`);
+        
+        
+  
     }
 
   async WriteToDB(orgCode: string) {

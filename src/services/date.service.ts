@@ -1,5 +1,5 @@
 class DateService {
-    async dateToEpoch(dateString: string): Promise<number> {
+    dateToEpoch(dateString: string): number {
         // Split the date string into day, month, and year
         const [day, month, year] = dateString.split('/').map(Number);
 
@@ -12,4 +12,3 @@ class DateService {
 }
 
 export default new DateService();
-
